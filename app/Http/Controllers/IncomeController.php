@@ -13,7 +13,7 @@ class IncomeController extends Controller
     {
         $tableData = [
             'heading' => [
-                'date','category','amount','nuevaCategoria'
+                'date','category','amount'
             ],
             'data' => [
                 ['12/12/2012','salary','2500'],
@@ -22,9 +22,13 @@ class IncomeController extends Controller
             ]
 
         ]; 
+
+        $datos=[
+            'nombre' => 'https:enlaceReal.es'
+        ];
+
         //Aquí la lógica de negocio para el index
-        return view('income.index',['title' => 'My incomes','tableData' => $tableData]);
-        
+        return view('income.index',['title' => 'My incomes','tableData' => $tableData,'datos' => $datos]);
     }
 
     /**

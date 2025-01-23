@@ -12,7 +12,7 @@
         <tbody>
             @foreach ($tableData['data'] as $index => $row)
                 <!-- Alternating row colors between white and light blue -->
-                <tr class="{{ $loop->even ? 'bg-grey' : 'bg-blue-100' }} border-b">
+                <tr class="{{ $loop->even ? 'bg-white' : 'bg-blue-100' }} border-b">
                     @foreach ($row as $key => $cell)
                         <!-- First column as <th> and others as <td> -->
                         @if ($loop->first)
