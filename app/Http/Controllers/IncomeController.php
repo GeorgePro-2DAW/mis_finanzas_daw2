@@ -24,7 +24,7 @@ class IncomeController extends Controller
         ]; 
 
         $datos=[
-            'nombre' => 'https:enlaceReal.es'
+            'enlace' => 'https:enlaceReal.es',
         ];
 
         //Aquí la lógica de negocio para el index
