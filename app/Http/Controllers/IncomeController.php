@@ -23,12 +23,10 @@ class IncomeController extends Controller
 
         ]; 
 
-        $datos=[
-            'enlace' => 'https:enlaceReal.es',
-        ];
+        
 
         //Aquí la lógica de negocio para el index
-        return view('income.index',['title' => 'My incomes','tableData' => $tableData,'datos' => $datos]);
+        return view('income.index',['title' => 'My incomes','tableData' => $tableData]);
     }
 
     /**
