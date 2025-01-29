@@ -19,8 +19,14 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+        
         $this->call([
             IncomeSeeder::class
         ]);
+        $this->call([
+            OutcomeSeeders::class
+        ]);
+        
+        //php artisan db:seed llama a DatabaseSeeder 
     }
 }

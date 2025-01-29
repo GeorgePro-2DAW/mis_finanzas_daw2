@@ -5,23 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class IncomeController extends Controller
+class OutcomeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    //
     public function index()
     {
-        $tableData = DB::table('incomes')->select('date','category','amount')->get();
+        $tableData = DB::table('outcomes')->select('date','category','amount')->get();
 
-        $columns = collect(DB::getSchemaBuilder()->getColumnListing('incomes'));
+        $columns = collect(DB::getSchemaBuilder()->getColumnListing('outcomes'));
         $columns = $columns->filter(function ($value, $key) {
             return in_array($value, ['id', 'created_at', 'updated_at']) === false;
         });
         
-
         //Aquí la lógica de negocio para el index
-        return view('income.index',['title' => 'My incomes','tableData'=>$tableData,'columns'=>$columns]);
+        return view('outcomes.index',['title'=>'My outcomes','tableData'=>$tableData,'tableData','columns'=>$columns]);
     }
 
     /**
@@ -30,7 +27,7 @@ class IncomeController extends Controller
     public function create()
     {
         //
-        return '<p>Esta es la página del create de incomes</p>';
+        return '<p>Esta es la página del create de outcomes</p>';
     }
 
     /**
@@ -47,7 +44,7 @@ class IncomeController extends Controller
     public function show(string $id)
     {
         //
-        return '<p>Esta es la página del show de incomes</p>';
+        return '<p>Esta es la página del show de outcomes</p>';
     }
 
     /**
@@ -56,7 +53,7 @@ class IncomeController extends Controller
     public function edit(string $id)
     {
         //
-        return '<p>Esta es la página del edit de incomes</p>';
+        return '<p>Esta es la página del edit de outcomes</p>';
     }
 
     /**

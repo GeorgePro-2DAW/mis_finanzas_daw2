@@ -4,6 +4,7 @@ namespace App\View\Components;
 
 use Closure;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Collection;
 use Illuminate\View\Component;
 
 class Table extends Component
@@ -11,7 +12,7 @@ class Table extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct(public array $tableData)
+    public function __construct(public Collection $tableData, public Collection $columns)
     {
         //
     }
