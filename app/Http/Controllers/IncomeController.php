@@ -22,7 +22,7 @@ class IncomeController extends Controller
         $elementos=["My Incomes"=>"incomes","My Outcomes"=>"outcomes"];
 
         //Aquí la lógica de negocio para el index
-        return view('income.index',['title' => 'My incomes','tableData'=>$tableData,'columns'=>$columns,'elementos'=>$elementos,'request'=>$request]);
+        return view('income.index',['title' => 'My incomes','tableData'=>$tableData,'columns'=>$columns,'elementos'=>$elementos]);
     }
 
     /**
