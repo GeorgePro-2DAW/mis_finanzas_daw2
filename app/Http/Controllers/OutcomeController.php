@@ -16,9 +16,10 @@ class OutcomeController extends Controller
         $columns = $columns->filter(function ($value, $key) {
             return in_array($value, ['id', 'created_at', 'updated_at']) === false;
         });
-        
+        $elementos=["My Incomes"=>"incomes","My Outcomes"=>"outcomes"];
+
         //Aquí la lógica de negocio para el index
-        return view('outcomes.index',['title'=>'My outcomes','tableData'=>$tableData,'tableData','columns'=>$columns]);
+        return view('outcomes.index',['title'=>'My outcomes','tableData'=>$tableData,'tableData','columns'=>$columns,'elementos'=>$elementos]);
     }
 
     /**

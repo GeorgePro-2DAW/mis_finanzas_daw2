@@ -19,9 +19,10 @@ class IncomeController extends Controller
             return in_array($value, ['id', 'created_at', 'updated_at']) === false;
         });
         
+        $elementos=["My Incomes"=>"incomes","My Outcomes"=>"outcomes"];
 
         //Aquí la lógica de negocio para el index
-        return view('income.index',['title' => 'My incomes','tableData'=>$tableData,'columns'=>$columns]);
+        return view('income.index',['title' => 'My incomes','tableData'=>$tableData,'columns'=>$columns,'elementos'=>$elementos,'request'=>$request]);
     }
 
     /**
