@@ -5,21 +5,21 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class OutcomeController extends Controller
+class ExpensesController extends Controller
 {
     //
     public function index()
     {
-        $tableData = DB::table('outcomes')->select('date','category','amount')->get();
+        $tableData = DB::table('expenses')->select('date','category','amount')->get();
 
         $columns = collect(DB::getSchemaBuilder()->getColumnListing('outcomes'));
         $columns = $columns->filter(function ($value, $key) {
             return in_array($value, ['id', 'created_at', 'updated_at']) === false;
         });
-        $elementos=["My Incomes"=>"incomes","My Outcomes"=>"outcomes"];
+        $elementos=["My Incomes"=>"incomes","My expenses"=>"expenses"];
 
         //Aquí la lógica de negocio para el index
-        return view('outcomes.index',['title'=>'My outcomes','tableData'=>$tableData,'tableData','columns'=>$columns,'elementos'=>$elementos]);
+        return view('outcomes.index',['title'=>'My expenses','tableData'=>$tableData,'tableData','columns'=>$columns,'elementos'=>$elementos]);
     }
 
     /**
@@ -37,6 +37,7 @@ class OutcomeController extends Controller
     public function store(Request $request)
     {
         //
+        
     }
 
     /**

@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-class OutcomeSeeders extends Seeder
+class ExpensesSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -24,6 +24,6 @@ class OutcomeSeeders extends Seeder
                 'updated_at' => $now,
             ];
         }
-        DB::table('outcomes')->insert($data);
+        DB::table('expenses')->insert($data);
     }
 }

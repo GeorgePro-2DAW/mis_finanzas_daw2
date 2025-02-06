@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
             IncomeSeeder::class
         ]);
         $this->call([
-            OutcomeSeeders::class
+            ExpensesSeeder::class
         ]);
         
         //php artisan db:seed llama a DatabaseSeeder 
