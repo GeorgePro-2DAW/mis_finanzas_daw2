@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Expenses;
 
 class ExpensesController extends Controller
 {
     //
     public function index()
     {
-        $tableData = DB::table('expenses')->select('date','category','amount')->get();
+        $tableData = DB::table('expenses')->select('id','date','category','amount')->get();
 
         $columns = collect(DB::getSchemaBuilder()->getColumnListing('outcomes'));
         $columns = $columns->filter(function ($value, $key) {
@@ -55,7 +56,8 @@ class ExpensesController extends Controller
     public function edit(string $id)
     {
         //
-        return '<p>Esta es la página del edit de outcomes</p>';
+        $expense=Expenses::findOrFail($id);
+        return view('update', compact('expense'));
     }
 
     /**
@@ -64,6 +66,20 @@ class ExpensesController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $request->validate([
+            'date'=>'required|date',
+            'category' => 'required|string|max:255',
+            'amount'=>'required|numeric'
+        ]);
+
+        Expenses::whereId($id)
+            ->update([
+                'date'=>$request->date,
+                'category'=>$request->category,
+                'amount'=>$request->amount
+            ]);
+            
+        return redirect()->route('outcomes.index')->with('success', 'Registro actualizado correctamente');
         
     }
 
@@ -73,5 +89,7 @@ class ExpensesController extends Controller
     public function destroy(string $id)
     {
         //
+        Expenses::whereId($id)->delete();
+        return redirect()->route('outcomes.index')->with('success', 'Registro borrado correctamente');
     }
 }

@@ -39,7 +39,7 @@ class CreateIncomeController extends Controller
             'category'=>$request->category,
             'amount'=>$request->amount
         ]);
-
+        
 
         return redirect()->route('incomes.index')->with('success', 'Registro guardado correctamente');
     }

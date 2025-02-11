@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Incomes;
 
 class IncomeController extends Controller
 {
@@ -12,7 +13,7 @@ class IncomeController extends Controller
      */
     public function index()
     {
-        $tableData = DB::table('incomes')->select('date','category','amount')->get();
+        $tableData = DB::table('incomes')->select('id','date','category','amount')->get();
 
         $columns = collect(DB::getSchemaBuilder()->getColumnListing('incomes'));
         $columns = $columns->filter(function ($value, $key) {
@@ -57,7 +58,9 @@ class IncomeController extends Controller
     public function edit(string $id)
     {
         //
-        return '<p>Esta es la página del edit de incomes</p>';
+        $income=Incomes::findOrFail($id);
+        return view('update', compact('income'));
+
     }
 
     /**
@@ -66,7 +69,21 @@ class IncomeController extends Controller
     public function update(Request $request, string $id)
     {
         //
-        
+        $request->validate([
+            'date'=>'required|date',
+            'category' => 'required|string|max:255',
+            'amount'=>'required|numeric'
+        ]);
+
+        Incomes::whereId($id)
+            ->update([
+                'date'=>$request->date,
+                'category'=>$request->category,
+                'amount'=>$request->amount
+            ]);
+            
+        return redirect()->route('incomes.index')->with('success', 'Registro actualizado correctamente');
+
     }
 
     /**
@@ -75,5 +92,8 @@ class IncomeController extends Controller
     public function destroy(string $id)
     {
         //
+        Incomes::whereId($id)->delete();
+        return redirect()->route('incomes.index')->with('success', 'Registro borrado correctamente');
+
     }
 }
