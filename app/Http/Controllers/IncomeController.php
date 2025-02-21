@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Incomes;
+use App\Models\Category;
 
 class IncomeController extends Controller
 {
@@ -13,15 +14,22 @@ class IncomeController extends Controller
      */
     public function index()
     {
-        $tableData = DB::table('incomes')->select('id','date','category','amount')->get();
-
+        $tableData = Incomes::with('category')->get()->map(function($incomes) {
+            return [
+                'date' => $incomes->date,
+                'category' => ucfirst($incomes->category->name),
+                'amount' => $incomes->amount,
+                'id' => $incomes->id
+            ];
+        });
         $columns = collect(DB::getSchemaBuilder()->getColumnListing('incomes'));
         $columns = $columns->filter(function ($value, $key) {
             return in_array($value, ['id', 'created_at', 'updated_at']) === false;
         });
         
-        $elementos=["My Incomes"=>"incomes","My expenses"=>"expenses"];
-
+        $elementos=["My Incomes"=>"incomes","My expenses"=>"expenses","My list"=>"list"];
+        
+        
         //Aquí la lógica de negocio para el index
         return view('income.index',['title' => 'My incomes','tableData'=>$tableData,'columns'=>$columns,'elementos'=>$elementos]);
     }
@@ -32,7 +40,9 @@ class IncomeController extends Controller
     public function create()
     {
         //
-        return '<p>Esta es la página del create de incomes</p>';
+        $categories=Category::all();
+        $elementos=["My Incomes"=>"/incomes","My expenses"=>"/expenses"];
+        return view('income.create',['categories'=>$categories,'elementos'=>$elementos,'title'=>'Create Income']);
     }
 
     /**
@@ -41,6 +51,14 @@ class IncomeController extends Controller
     public function store(Request $request)
     {
         //
+        $validate=$request->validate([
+            'date'=>'required|date',
+            'category_id' => 'required',
+            'amount'=>'required|numeric'
+        ]);
+        Incomes::create($validate);
+
+        return redirect()->route('incomes.index');
     }
 
     /**
@@ -71,9 +89,10 @@ class IncomeController extends Controller
         //
         $request->validate([
             'date'=>'required|date',
-            'category' => 'required|string|max:255',
+            'categorY_id' => 'required|string|max:2',
             'amount'=>'required|numeric'
         ]);
+        
 
         Incomes::whereId($id)
             ->update([

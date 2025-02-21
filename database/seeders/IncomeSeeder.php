@@ -18,7 +18,7 @@ class IncomeSeeder extends Seeder
         for($i=0;$i<=50; $i++){
             $data[]=[
                 'date'=>$now,
-                'category'=>'salary',
+                'category_id'=>1,
                 'amount' => rand(50,5000),
                 'created_at' => $now,
                 'updated_at' => $now,

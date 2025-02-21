@@ -30,17 +30,17 @@
                     @endforeach
                     @if (request()->path()=='incomes')
                         <td>
-                            <x-button  href="{{route('show.index', ['id' => $row->id]) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">Update</x-button>
+                            <x-button  href="{{route('show.index', ['id' => $row['id']]) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">Update</x-button>
                         </td>
                         <td>
-                            <x-button  href="{{route('destroy.index' , ['id' => $row->id]) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">Delete</x-button>
+                            <x-button  href="{{route('destroy.index' , ['id' => $row['id']]) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">Delete</x-button>
                         </td>
                     @elseif(request()->path()=='expenses')
                         <td>
-                            <x-button  href="{{route('showExpense.index', ['id' => $row->id]) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">Update</x-button>
+                            <x-button  href="{{route('showExpense.index', ['id' => $row['id']]) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">Update</x-button>
                         </td>
                         <td>
-                            <x-button  href="{{route('destroyExpense.index', ['id' => $row->id]) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">Delete</x-button>
+                            <x-button  href="{{route('destroyExpense.index', ['id' => $row['id']]) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">Delete</x-button>
                         </td>
                     @endif
                     

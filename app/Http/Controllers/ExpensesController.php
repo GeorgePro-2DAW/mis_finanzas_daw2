@@ -5,19 +5,26 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Expenses;
+use App\Models\Category;
 
 class ExpensesController extends Controller
 {
     //
     public function index()
     {
-        $tableData = DB::table('expenses')->select('id','date','category','amount')->get();
-
-        $columns = collect(DB::getSchemaBuilder()->getColumnListing('outcomes'));
+        $tableData = Expenses::with('category')->get()->map(function($expenses) {
+            return [
+                'date' => $expenses->date,
+                'category' => ucfirst($expenses->category->name),
+                'amount' => $expenses->amount,
+                'id' => $expenses->id
+            ];
+        });
+        $columns = collect(DB::getSchemaBuilder()->getColumnListing('expenses'));
         $columns = $columns->filter(function ($value, $key) {
             return in_array($value, ['id', 'created_at', 'updated_at']) === false;
         });
-        $elementos=["My Incomes"=>"incomes","My expenses"=>"expenses"];
+        $elementos=["My Incomes"=>"incomes","My expenses"=>"expenses","My list"=>"list"];
 
         //Aquí la lógica de negocio para el index
         return view('outcomes.index',['title'=>'My expenses','tableData'=>$tableData,'tableData','columns'=>$columns,'elementos'=>$elementos]);
@@ -29,7 +36,9 @@ class ExpensesController extends Controller
     public function create()
     {
         //
-        return '<p>Esta es la página del create de outcomes</p>';
+        $categories=Category::all();
+        $elementos=["My Incomes"=>"/incomes","My expenses"=>"/expenses"];
+        return view('outcomes.create',['categories'=>$categories,'elementos'=>$elementos,'title'=>'Create Income']);
     }
 
     /**

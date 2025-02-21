@@ -5,6 +5,7 @@ use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\CreateIncomeController;
 use App\Http\Controllers\ExpensesController;
 use App\Http\Controllers\CreateExpensesController;
+use App\Http\Controllers\CategoryListController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -13,11 +14,15 @@ Route::get('/', function () {
 //Route::resource('incomes', IncomeController::class);
 Route::get('/incomes', [IncomeController::class, 'index'])->name('incomes.index');
 Route::get('/expenses',[ExpensesController::class,'index'])->name('outcomes.index');
+Route::get('/list',[CategoryListController::class,'index'])->name('categorylist.index');
 
-Route::get('/incomes/create',[CreateIncomeController::class,'index'])->name('create.index');
-Route::get('/expenses/create',[CreateExpensesController::class,'index'])->name('create2.index');
 
-Route::post('/guardarIncome', [CreateIncomeController::class, 'store'])->name('create.store');
+Route::get('/incomes/create',[IncomeController::class,'create'])->name('incomes.create');
+Route::get('/expenses/create',[ExpensesController::class,'create'])->name('expenses.create');
+Route::get('/list/{category}',[CategoryListController::class,'show'])->name('categorylist.show');
+
+
+Route::post('/guardarIncome', [IncomeController::class, 'store'])->name('income.store');
 Route::post('/guardarExpense', [CreateExpensesController::class, 'store'])->name('create2.store');
 
 Route::get('/incomes/update/{id}',[IncomeController::class, 'edit'])->name('show.index');
