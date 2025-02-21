@@ -2,10 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IncomeController;
-use App\Http\Controllers\CreateIncomeController;
 use App\Http\Controllers\ExpensesController;
 use App\Http\Controllers\CreateExpensesController;
 use App\Http\Controllers\CategoryListController;
+use App\Models\Expenses;
 
 Route::get('/', function () {
     return view('welcome');
@@ -23,7 +23,7 @@ Route::get('/list/{category}',[CategoryListController::class,'show'])->name('cat
 
 
 Route::post('/guardarIncome', [IncomeController::class, 'store'])->name('income.store');
-Route::post('/guardarExpense', [CreateExpensesController::class, 'store'])->name('create2.store');
+Route::post('/guardarExpense', [ExpensesController::class, 'store'])->name('expenses.store');
 
 Route::get('/incomes/update/{id}',[IncomeController::class, 'edit'])->name('show.index');
 Route::get('/incomes/destroy/{id}',[IncomeController::class, 'destroy'])->name('destroy.index');

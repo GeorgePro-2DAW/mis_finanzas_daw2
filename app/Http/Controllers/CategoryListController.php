@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Incomes;
+use App\Models\Expenses;
 use Illuminate\Support\Facades\DB;
 
 class CategoryListController extends Controller
@@ -47,11 +48,19 @@ class CategoryListController extends Controller
                 'id' => $incomes->id
             ];
         });
+        $tableDataExpenses = Expenses::with('category')->where('category_id',$id)->get()->map(function($incomes) {
+            return [
+                'date' => $incomes->date,
+                'category' => ucfirst($incomes->category->name),
+                'amount' => $incomes->amount,
+                'id' => $incomes->id
+            ];
+        });
         $columns = collect(DB::getSchemaBuilder()->getColumnListing('incomes'));
         $columns = $columns->filter(function ($value, $key) {
             return in_array($value, ['id', 'created_at', 'updated_at']) === false;
         });
-        return view("categorylist/show",['tableData'=>$tableData,'columns'=>$columns]);
+        return view("categorylist/show",['tableData'=>$tableData,'columns'=>$columns,'tableDataExpenses'=>$tableDataExpenses]);
     }
 
     /**

@@ -15,7 +15,7 @@ class ExpensesSeeder extends Seeder
         //
         $now = now();
         $data = [];
-        for($i=0;$i<=25; $i++){
+        for($i=0;$i<=5; $i++){
             $data[]=[
                 'date'=>$now,
                 'category_id'=>1,
@@ -25,5 +25,16 @@ class ExpensesSeeder extends Seeder
             ];
         }
         DB::table('expenses')->insert($data);
+        for($i=0;$i<=5; $i++){
+            $data2[]=[
+                'date'=>$now,
+                'category_id'=>2,
+                'amount' => rand(50,5000),
+                'created_at' => $now,
+                'updated_at' => $now,
+            ];
+        }
+        DB::table('expenses')->insert($data2);
+
     }
 }

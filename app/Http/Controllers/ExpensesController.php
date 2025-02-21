@@ -47,7 +47,14 @@ class ExpensesController extends Controller
     public function store(Request $request)
     {
         //
-        
+        $validate=$request->validate([
+            'date'=>'required|date',
+            'category_id' => 'required',
+            'amount'=>'required|numeric'
+        ]);
+        Expenses::create($validate);
+
+        return redirect()->route('outcomes.index');
     }
 
     /**

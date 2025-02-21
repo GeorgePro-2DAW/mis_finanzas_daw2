@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Expenses extends Model
 {
-    protected $fillable= ['date', 'category','amount'];
+    protected $fillable= ['date', 'category_id','amount'];
     
     public function category(): BelongsTo {
         return $this->belongsTo(Category::class);
