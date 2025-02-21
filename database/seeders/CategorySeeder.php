@@ -16,6 +16,7 @@ class CategorySeeder extends Seeder
         //
         Category::create(['name'=>'salario']);
         Category::create(['name'=>'Stuff']);
+        Category::create(['name'=>'Dokkan']);
 
     }
 }

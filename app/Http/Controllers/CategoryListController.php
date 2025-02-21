@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Incomes;
 use App\Models\Expenses;
@@ -12,8 +13,13 @@ class CategoryListController extends Controller
     //
     public function index()
     {
-        $list= [1=>'Salario',2=>'Stuff'] ;
-        return view("categorylist/index",['list'=>$list]);
+        $tableData = Category::get()->map(function($category) {
+            return [
+                'id'=> $category->id,
+                'category' => ucfirst($category->name),
+            ];
+        });
+        return view("categorylist/index",['tableData'=>$tableData]);
     }
 
     /**

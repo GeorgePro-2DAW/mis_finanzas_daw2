@@ -1,5 +1,4 @@
 <div>
-    <!-- Do what you can, with what you have, where you are. - Theodore Roosevelt -->
 
     <nav class="bg-gray-800">
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
